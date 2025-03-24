@@ -84,7 +84,6 @@ Locators that are neccessary for the tests are located here
 
 ### `Notes from Uyen`
 
-Actions are failing on github because I didn't add the env for them - mainly because it needs to have the username and password - and I don't want to insert public credentials on github. Please run it on the terminal with the environment stated above. 
+Actions are failing on github because I didn't add the env for them in the yml file - mainly because it needs to have the username and password - and I don't want to insert public credentials on github. Please run it on the terminal with the environment stated above. 
 
 Thank you for taking the time to read my README.md and code! I appreciate being considered for this position and look forward to hearing back from the team!   
- 
