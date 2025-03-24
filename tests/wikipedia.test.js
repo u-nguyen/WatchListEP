@@ -1,10 +1,18 @@
+// Uyen Nguyen
+
 import { test, expect, chromium } from '@playwright/test';
 import { WikiPages } from '../pages/wikipedia.pages'; // Import the WikiPages class (locators)
 
-// Declare shared variables
 let browser, context, page, wikiPages;
 const articleName1 = process.env.WIKI_ARTICLE_NAME1;
 const articleName2 = process.env.WIKI_ARTICLE_NAME2;
+
+function removeUnderscores(articleName) {
+  return articleName.replace(/_/g, ' ');
+};
+
+const reformattedName1 = removeUnderscores(articleName1);
+const reformattedName2 = removeUnderscores(articleName2);
 
 // Launch the browser and login to Wikipedia
 test.beforeAll(async () => {
@@ -37,14 +45,14 @@ test('Remove One Article from Watchlist', async () => {
   await goToWatchlist();
 
   // Remove one of the articles from the watchlist - articleName1
-  await page.getByRole('checkbox', { name: `${articleName1} (talk | history)` }).check();
-  await expect(page.getByRole('checkbox', { name: `${articleName1} (talk | history)` })).toBeChecked();
+  await page.getByRole('checkbox', { name: `${reformattedName1} (talk | history)` }).check();
+  await expect(page.getByRole('checkbox', { name: `${reformattedName1} (talk | history)` })).toBeChecked();
 
   await page.getByRole('button', { name: 'Remove titles' }).click();
 
   // Verify that the article is removed from the watchlist
   await expect(wikiPages.wikiWatchList.removedFromWatchlistBody).toContainText('A single title was removed from your watchlist:');
-  await expect(wikiPages.wikiWatchList.removedFromWatchlistBody).toContainText(articleName1);
+  await expect(wikiPages.wikiWatchList.removedFromWatchlistBody).toContainText(reformattedName1);
 });
 
 test('Verify Second Article Remains in Watchlist', async () => {
@@ -57,7 +65,7 @@ test('Verify Second Article Remains in Watchlist', async () => {
   await verifyArticleInWatchlist(articleName2);
   await wikiPages.wikiWatchList.listHyperLink(articleName2).click();
   await expect(page).toHaveURL(`https://en.wikipedia.org/wiki/${articleName2}`);
-  await expect(wikiPages.wikiWatchList.articleHeading).toHaveText(articleName2);
+  await expect(wikiPages.wikiWatchList.articleHeading).toHaveText(reformattedName2);
 });
 
 // Delete all articles from the watchlist and close the browser
@@ -88,7 +96,8 @@ async function addArticleToWatchlist(articleName) {
 // Verify Article in Watchlist
 async function verifyArticleInWatchlist(articleName) {
   await expect(wikiPages.wikiWatchList.listHyperLink(articleName)).toBeVisible();
-  await expect(wikiPages.wikiWatchList.listHyperLink(articleName)).toHaveText(articleName);
+  const reformattedName = await removeUnderscores(articleName)
+  await expect(wikiPages.wikiWatchList.listHyperLink(articleName)).toHaveText(reformattedName);
 }
 
 // Go to Watchlist
