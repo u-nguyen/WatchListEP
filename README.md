@@ -80,9 +80,9 @@ This file contains the main test cases for Wikipedia's watchlist features.
 
 Locators that are neccessary for the tests are located here
 
+=======================================
 
-
-### `Notes from Uyen`
+### Notes from Uyen
 
 Actions are failing on github because I didn't add the env for them in the yml file - mainly because it needs to have the username and password - and I don't want to insert public credentials on github. Please run it on the terminal with the environment stated above. 
 

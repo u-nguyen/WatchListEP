@@ -4,9 +4,12 @@ import { test, expect, chromium } from '@playwright/test';
 import { WikiPages } from '../pages/wikipedia.pages'; // Import the WikiPages class (locators)
 
 let browser, context, page, wikiPages;
-const articleName1 = process.env.WIKI_ARTICLE_NAME1 || 'Blueberry';
-const articleName2 = process.env.WIKI_ARTICLE_NAME2 || 'Ice_cream';
+const articleName1 = process.env.WIKI_ARTICLE_NAME1 || 'Blueberry'; // Article will be defaulted to Blueberry if not provided at runtime
+const articleName2 = process.env.WIKI_ARTICLE_NAME2 || 'Ice_cream'; // Article will be defaulted to Ice_cream if not provided at runtime
 
+// In the case that article name has underscores, remove them 
+// Users should provide article names with underscores in the environment variables if there are more than one word
+// For example, WIKI_ARTICLE_NAME1=Ice_cream
 function removeUnderscores(articleName) {
   return articleName.replace(/_/g, ' ');
 };
