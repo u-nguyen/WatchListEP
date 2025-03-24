@@ -4,8 +4,8 @@ import { test, expect, chromium } from '@playwright/test';
 import { WikiPages } from '../pages/wikipedia.pages'; // Import the WikiPages class (locators)
 
 let browser, context, page, wikiPages;
-const articleName1 = process.env.WIKI_ARTICLE_NAME1;
-const articleName2 = process.env.WIKI_ARTICLE_NAME2;
+const articleName1 = process.env.WIKI_ARTICLE_NAME1 || 'Blueberry';
+const articleName2 = process.env.WIKI_ARTICLE_NAME2 || 'Ice_cream';
 
 function removeUnderscores(articleName) {
   return articleName.replace(/_/g, ' ');
