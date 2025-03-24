@@ -19,6 +19,7 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       env:
+        CI: true
         WIKI_USERNAME: ${{ secrets.WIKI_USERNAME }}
         WIKI_PASSWORD: ${{ secrets.WIKI_PASSWORD }}
       run: npx playwright test
